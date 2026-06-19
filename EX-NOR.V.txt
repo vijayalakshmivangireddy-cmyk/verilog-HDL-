@@ -1,0 +1,14 @@
+`timescale 1ns/1ps
+
+// EX_NOR Gate - RTL Model
+// Tool: EDA Playground / Icarus Verilog
+// Author: Vangireddy Vijayalakshmi
+
+module EX_NOR(
+  
+  input wire a,b, // Inputs
+  output wire c   // Output
+);
+  assign c= ~(a^b);   // Continuous assignment
+  
+endmodule 
