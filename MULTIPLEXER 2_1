@@ -20,7 +20,7 @@ module mux_tb;
     $finish;
   end 
 endmodule
-//2_1mux design
+//2_1mux design dataflow
 module mux_2_1(
   input i0,i1,s,
   output y
@@ -28,3 +28,27 @@ module mux_2_1(
   assign y= s?i1:i0;
 endmodule
   
+//2_1mux design structural
+module mux_2_1(
+  input i0,i1,s,
+  output y
+);
+  wire i,s_bar,w1,w2;
+  not g1(s_bar,s);
+  and g2(w1,i0,s);
+  and g3(w2,i1,s);
+  or  g4(y,w1,w2);
+endmodule
+// Code your design here
+//2_1mux design behavioural
+module mux_2_1(
+  input i0,i1,s,
+  output reg y
+);
+  always @(*)begin
+    if(s==0)
+      y=i0;
+    else 
+      y=i1;
+  end
+endmodule
