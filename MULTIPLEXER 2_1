@@ -20,6 +20,7 @@ module mux_tb;
     $finish;
   end 
 endmodule
+
 //2_1mux design dataflow
 module mux_2_1(
   input i0,i1,s,
@@ -39,7 +40,7 @@ module mux_2_1(
   and g3(w2,i1,s);
   or  g4(y,w1,w2);
 endmodule
-// Code your design here
+
 //2_1mux design behavioural
 module mux_2_1(
   input i0,i1,s,
