@@ -10,9 +10,10 @@ module mux_tb;
     .s(s)
   );
   initial begin
-    $monitor("$time |i0=%b|i1=%b|y=%b|s=%b|" ,i0,i1,y,s);
-    $dumpvars(1,mux_tb);
+    $monitor("time=%0t|i0=%b|i1=%b||y=%b|s=%b|", $time,i0,i1,y,s);
     $dumpfile("mux.vcd");
+    $dumpvars(1,mux_tb);
+    
          i0 = 0; i1 = 1; s = 0;
         #10 s = 1;
         #10 i0 = 1; i1 = 0; s = 0;
@@ -41,7 +42,7 @@ module mux_2_1(
   or  g4(y,w1,w2);
 endmodule
 
-//2_1mux design behavioural
+//2_1mux design behavioural_1
 module mux_2_1(
   input i0,i1,s,
   output reg y
@@ -54,7 +55,7 @@ module mux_2_1(
   end
 endmodule
 
-
+//2_1mux design behavioural_1
 module mux_2_1(
   input i0,i1,s,
   output reg y
