@@ -1,0 +1,65 @@
+//2_1mux design dataflow
+module mux_2_1(
+  input i0,i1,s,
+  output y
+);
+  assign y= s?i1:i0;
+endmodule
+//design
+module mux_4_1 (
+    input [3:0] i,
+    input [1:0] s,
+    output reg y
+);
+  wire w1,w2;
+  mux_2_1 m1(
+    .y(w1),
+    .i0(i[0]),
+    .i1(i[1]),
+    .s(s[0])
+  );
+     mux_2_1 m2(
+       .y(w2),
+       .i0(i[2]),
+       .i1(i[3]),
+    .s(s[0])
+  );
+     mux_2_1 m3(
+       .y(y),
+       .i0(i[w1]),
+       .i1(i[w2]),
+       .s(s[1])
+  );
+    endmodule
+
+
+
+//testbench
+module mux_tb;
+
+reg [3:0] i;
+reg [1:0] s;
+wire y;
+   integer k;
+
+mux_4_1 dut (
+    .i(i),
+    .s(s),
+    .y(y)
+);
+
+initial begin
+    $dumpfile("mux.vcd");
+  $dumpvars(1, mux_tb);
+
+    i = 4'b1010;
+
+    for (k = 0; k < 4; k = k + 1) begin
+        s = k;
+        #10;
+        $display("i=%b s=%b y=%b", i, s, y);
+    end
+
+    $finish;
+end
+endmodule
