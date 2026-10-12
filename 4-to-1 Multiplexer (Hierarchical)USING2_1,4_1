@@ -1,0 +1,93 @@
+//8_to_1 Multiplexer (Hierarchical) USING 2_1 MULTIPLEXER
+//2_1mux design dataflow
+
+module mux_2_1(
+  input i0,i1,s,
+  output y
+);
+  assign y= s?i1:i0;
+endmodule
+module mux_8_1 (
+  input [7:0] i,
+  input [2:0] s,
+    output y
+);
+
+  wire w1,w2,w3,w4,w5,w6;
+  mux_2_1 m1(
+    .y(w1),
+    .i0(i[0]),
+    .i1(i[1]),
+    .s(s[0])
+  );
+     mux_2_1 m2(
+       .y(w2),
+       .i0(i[2]),
+       .i1(i[3]),
+    .s(s[0])
+  );
+     mux_2_1 m3(
+       .y(w3),
+       .i0(i[4]),
+       .i1(i[5]),
+       .s(s[0])
+  );
+   mux_2_1 m4(
+     .y(w4),
+     .i0(i[6]),
+     .i1(i[7]),
+     .s(s[0])
+  );
+   mux_2_1 m5(
+     .y(w5),
+       .i0(w1),
+       .i1(w2),
+       .s(s[1])
+  );
+   mux_2_1 m6(
+     .y(w6),
+     .i0(w3),
+     .i1(w4),
+       .s(s[1])
+  );
+   mux_2_1 m7(
+     .y(y),
+     .i0(w5),
+     .i1(w6),
+     .s(s[2])
+  );
+    endmodule
+
+
+// Code your testbench here
+// TESTBENCH OF 8_1 UX
+
+module mux_tb;
+
+  reg [7:0] i;
+  reg [2:0] s;
+wire y;
+integer k;
+
+mux_8_1 dut (
+    .i(i),
+    .s(s),
+    .y(y)
+);
+
+initial begin
+    $dumpfile("mux.vcd");
+  $dumpvars(1, mux_tb);
+
+    i = 8'b10101011;
+
+  for (k = 0; k < 8; k = k + 1) begin
+        s = k;
+        #10;
+        $display("i=%b s=%b y=%b", i, s, y);
+    end
+
+    $finish;
+end
+endmodule
+
